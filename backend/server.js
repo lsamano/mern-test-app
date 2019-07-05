@@ -1,6 +1,7 @@
 import express from 'express'
 import bodyParser from 'body-parser'
 import mongoose from 'mongoose'
+import logger from 'morgan'
 import User from './models/user'
 import Donation from './models/donation'
 import Project from './models/project'
@@ -18,12 +19,12 @@ mongoose.connect( DB_URI, { useNewUrlParser: true } )
 var db = mongoose.connection
 db.on('error', console.error.bind(console, 'MongoDB connection error:'))
 
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
-// app.use(logger('dev'));
+app.use( bodyParser.urlencoded({ extended: false }) )
+app.use(bodyParser.json())
+app.use(logger('dev'))
 
 router.get('/', (req, res) => {
-  res.json({hello: "world"})
+  res.json({ hello: "world" })
 })
 
 // User
