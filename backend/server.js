@@ -2,6 +2,7 @@ import express from 'express'
 import bodyParser from 'body-parser'
 import mongoose from 'mongoose'
 import logger from 'morgan'
+import cors from 'cors'
 import User from './models/user'
 import Donation from './models/donation'
 import Project from './models/project'
@@ -22,6 +23,7 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'))
 app.use( bodyParser.urlencoded({ extended: false }) )
 app.use(bodyParser.json())
 app.use(logger('dev'))
+app.use(cors());
 
 router.get('/', (req, res) => {
   res.json({ hello: "world" })
@@ -111,7 +113,7 @@ router.post('/donations', (req, res) => {
 // Project
 router.get('/projects', (req, res) => {
   Project.find()
-  .populate('owner')
+  .populate('owner', ['username', 'bio'])
   .exec((error, projects) => {
     if (error) return res.json({ success: false, error: error })
     return res.json({ success: true, projects })
