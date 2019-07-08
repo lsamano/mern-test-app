@@ -121,7 +121,9 @@ router.get('/projects', (req, res) => {
 })
 
 router.get('/projects/:id', (req, res) => {
-  Project.findById(req.params.id, (error, project) => {
+  Project.findById(req.params.id)
+  .populate('owner', ['username', 'bio'])
+  .exec((error, project) => {
     if (error) return res.json({ success: false, error })
     return res.json({ success: true, project })
   })

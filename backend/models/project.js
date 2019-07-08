@@ -9,7 +9,8 @@ const ProjectsSchema = new Schema({
     required: true,
     ref: 'User'
   },
-  goal: Number
+  goal: Number,
+  description: String
 }, { timestamps: true } )
 
 export default mongoose.model('Project', ProjectsSchema)

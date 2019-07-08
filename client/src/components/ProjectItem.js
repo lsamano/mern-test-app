@@ -1,11 +1,12 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const ProjectItem = ({project}) => {
   console.log(project);
   return (
-    <div>
-      { project.name } by { project.owner.username }
-    </div>
+    <p>
+    <Link to={`/projects/${project._id}`}>{ project.name }</Link> by { project.owner.username }
+    </p>
   );
 }
 

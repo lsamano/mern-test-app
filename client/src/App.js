@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { useEffect, useContext } from 'react';
 import { Store } from './Store';
-import ProjectItem from './components/ProjectItem'
 import { Switch, Route } from 'react-router-dom'
+import Container from '@material-ui/core/Container';
+import ProjectContainer from './containers/ProjectContainer';
+import ProjectPage from './components/ProjectPage'
+import PrimarySearchAppBar from './components/PrimarySearchAppBar'
 
 function App() {
   // Get state and dispatch from the Store
-  const { state, dispatch } = React.useContext(Store);
+  const { state, dispatch } = useContext(Store);
 
   const setProjects = dataJSON => ({
     type: 'SET_PROJECTS',
@@ -19,19 +22,18 @@ function App() {
 };
 
 // Equivalent of componentDidMount & componentDidUpdate
-React.useEffect(() => {
+useEffect(() => {
   state.allProjects.length === 0 && fetchProjects();
 });
 
   return (
-    <>
-    All Projects:
+    <Container>
+      <PrimarySearchAppBar />
       <Switch>
-        <Route path="/home" render={renderProps => {
-          return state.allProjects.map(proj => <ProjectItem project={proj} key={proj._id} /> )
-        }} />
+        <Route path="/projects/:id" component={ProjectPage} />
+        <Route path="/" component={ProjectContainer} />
       </Switch>
-    </>
+    </Container>
   );
 }
 
