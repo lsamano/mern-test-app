@@ -1,6 +1,6 @@
 import Project from '../models/project';
 
-export const get_index = (req, res) => {
+export const index = (req, res) => {
   Project.find()
   .populate('owner', ['username', 'bio'])
   .exec((error, projects) => {
@@ -9,7 +9,7 @@ export const get_index = (req, res) => {
   })
 }
 
-export const get_show = (req, res) => {
+export const show = (req, res) => {
   Project.findById(req.params.id)
   .populate('owner', ['username', 'bio'])
   .exec((error, project) => {
@@ -18,7 +18,7 @@ export const get_show = (req, res) => {
   })
 }
 
-export const post_index = (req, res) => {
+export const create = (req, res) => {
   const project = new Project(req.body)
   project.save((error, newProject) => {
     if (error) return res.json({ success: false, error: error })
@@ -26,7 +26,7 @@ export const post_index = (req, res) => {
   })
 }
 
-export const put_show = (req, res) => {
+export const update = (req, res) => {
   Project.findById(req.params.id, (error, project) => {
     if (error) return res.json({ success: false, error })
     const { name, owner, goal, description } = req.body
@@ -41,7 +41,7 @@ export const put_show = (req, res) => {
   })
 }
 
-export const delete_show = (req, res) => {
+export const destroy = (req, res) => {
   Project.deleteOne({ _id:req.params.id }, error => {
     if (error) return res.json({ success: false, error })
     return res.json({ success: true })
