@@ -25,8 +25,10 @@ app.use(bodyParser.json())
 app.use(logger('dev'))
 app.use(cors());
 
-router.get('/', (req, res) => {
-  res.json({ hello: "world" })
+router.get('/test/:thing', (req, res) => {
+  console.log("HAHAHSHDSHD", req)
+  // res.json({ body: req.body, headers:req.headers, method: req.method, params: req.params })
+  // res.send({...req.app})
 })
 
 // User
