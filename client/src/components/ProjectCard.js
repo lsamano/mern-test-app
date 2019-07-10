@@ -10,6 +10,7 @@ import Typography from '@material-ui/core/Typography';
 import { red } from '@material-ui/core/colors';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import moment from 'moment';
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles(theme => ({
   card: {
@@ -36,11 +37,6 @@ const useStyles = makeStyles(theme => ({
 
 const ProjectCard = ({project}) => {
   const classes = useStyles();
-  const [expanded, setExpanded] = React.useState(false);
-
-  function handleExpandClick() {
-    setExpanded(!expanded);
-  }
 
   return (
     <Card className={classes.card}>
@@ -58,11 +54,13 @@ const ProjectCard = ({project}) => {
         title={project.name}
         subheader={moment(project.createdAt).format("MMMM Do YY")}
       />
+      <Link to={`/projects/${project._id}`}>
       <CardMedia
         className={classes.media}
-        image="/static/images/cards/paella.jpg"
-        title="Paella dish"
+        image="https://cdn.lynda.com/course/506926/506926-636238695730179167-16x9.jpg"
+        title="Project Image"
       />
+      </Link>
       <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">
           This impressive paella is a perfect party dish and a fun meal to cook together with your
