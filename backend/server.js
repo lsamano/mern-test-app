@@ -20,8 +20,8 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'))
 app.use( bodyParser.urlencoded({ extended: false }) )
 app.use(bodyParser.json())
 app.use(logger('dev'))
-app.use(cors());
+app.use(cors())
 
-app.use('/api', router);
+app.use('/api', router)
 
-app.listen(API_PORT, () => console.log(`Success! Listening on port ${API_PORT}`));
+app.listen(API_PORT, () => console.log(`Success! Listening on port ${API_PORT}`))

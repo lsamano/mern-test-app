@@ -13,6 +13,14 @@ export const index = (req, res) => {
   })
 }
 
+export const create = (req, res) => {
+  const donation = new Donation(req.body)
+  donation.save((error, newDonation) => {
+    if (error) return res.json({ success: false, error: error })
+    return res.json({ success: true, donation: newDonation })
+  })
+}
+
 export const show = (req, res) => {
   Donation.findById(req.params.id, (error, donation) => {
     if (error) return res.json({ success: false, error })
@@ -20,10 +28,14 @@ export const show = (req, res) => {
   })
 }
 
-export const create = (req, res) => {
-  const donation = new Donation(req.body)
-  donation.save((error, newDonation) => {
+export const update = (req, res) => {
+  Donation.findById(req.params.id, (error, donation) => {
     if (error) return res.json({ success: false, error: error })
-    return res.json({ success: true, donation: newDonation })
+    const { amount } = req.body
+    if (amount) donation.amount = amount
+    donation.save((error, savedDonation) => {
+      if (error) return res.json({ success: false, error: error })
+      return res.json({ success: true, donation: savedDonation })
+    })
   })
 }

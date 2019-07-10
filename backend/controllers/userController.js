@@ -10,13 +10,6 @@ export const index = (req, res) => {
   })
 }
 
-export const show = (req, res) => {
-  User.findById(req.params.id, (error, user) => {
-    if (error) return res.json({ success: false, error })
-    return res.json({ success: true, user })
-  })
-}
-
 export const create = (req, res) => {
   const user = new User(req.body)
   user.save((error, newUser) => {
@@ -25,6 +18,13 @@ export const create = (req, res) => {
     } else {
       return res.json({ success: true, user: newUser })
     }
+  })
+}
+
+export const show = (req, res) => {
+  User.findById(req.params.id, (error, user) => {
+    if (error) return res.json({ success: false, error })
+    return res.json({ success: true, user })
   })
 }
 
