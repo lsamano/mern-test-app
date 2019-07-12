@@ -1,9 +1,7 @@
-import express from 'express'
+import router from './server'
 import * as projectController from './controllers/projectController'
 import * as userController from './controllers/userController'
 import * as donationController from './controllers/donationController'
-
-const router = express.Router()
 
 // User
 router.get('/users', userController.index)
