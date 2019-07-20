@@ -4,9 +4,9 @@ import mongoose from 'mongoose'
 import logger from 'morgan'
 import cors from 'cors'
 import dotenv from 'dotenv'
+import router from './router'
 
 const app = express()
-export const router = express.Router()
 
 dotenv.config()
 const API_PORT = process.env.PORT || 3000
