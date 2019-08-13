@@ -1,6 +1,6 @@
 import User from '../models/user';
 
-export const index = (req, res) => {
+const index = (req, res) => {
   User.find((error, users) => {
     if (error) {
       return res.json({ success: false, error: error })
@@ -10,7 +10,7 @@ export const index = (req, res) => {
   })
 }
 
-export const create = (req, res) => {
+const create = (req, res) => {
   const user = new User(req.body)
   user.save((error, newUser) => {
     if (error) {
@@ -21,14 +21,14 @@ export const create = (req, res) => {
   })
 }
 
-export const show = (req, res) => {
+const show = (req, res) => {
   User.findById(req.params.id, (error, user) => {
     if (error) return res.json({ success: false, error })
     return res.json({ success: true, user })
   })
 }
 
-export const update = (req, res) => {
+const update = (req, res) => {
   User.findById(req.params.id, (error, user) => {
     if (error) return res.json({ success: false, error: error })
     const { username, password, bio } = req.body
@@ -42,9 +42,17 @@ export const update = (req, res) => {
   })
 }
 
-export const destroy = (req, res) => {
+const destroy = (req, res) => {
   User.deleteOne({ _id:req.params.id }, error => {
     if (error) return res.json({ success: false, error })
     return res.json({ success: true })
   })
+}
+
+export default {
+  index,
+  create,
+  show,
+  update,
+  destroy
 }

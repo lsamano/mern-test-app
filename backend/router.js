@@ -1,9 +1,9 @@
 import express from 'express'
 const router = express.Router()
 
-import * as projectController from './controllers/projectController'
-import * as userController from './controllers/userController'
-import * as donationController from './controllers/donationController'
+import projectController from './controllers/projectController'
+import userController from './controllers/userController'
+import donationController from './controllers/donationController'
 
 // User
 router.get('/users', userController.index)
