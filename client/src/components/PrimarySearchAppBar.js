@@ -161,7 +161,7 @@ export default function PrimarySearchAppBar() {
 
   return (
     <div className={classes.grow}>
-      <AppBar position="static">
+      <AppBar position="static" style={{backgroundColor: '#'+Math.random().toString(16).substr(-6)}}>
         <Toolbar>
           <IconButton
             edge="start"
