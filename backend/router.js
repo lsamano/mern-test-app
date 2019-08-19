@@ -4,41 +4,10 @@ const router = express.Router()
 import projectController from './controllers/projectController'
 import userController from './controllers/userController'
 import donationController from './controllers/donationController'
+import authController from './controllers/authController'
 
-const { OAuth2Client } = require('google-auth-library');
-import User from './models/user';
-
-const CLIENT_ID = process.env.CLIENT_ID
-const client = new OAuth2Client(CLIENT_ID);
-
-async function verify(token) {
-  const ticket = await client.verifyIdToken({
-    idToken: token,
-    audience: CLIENT_ID
-  });
-  const payload = ticket.getPayload();
-  return payload
-}
-
-
-router.post('/login', async (req, res) => {
-  const payload =  await verify(req.body.token).catch(console.error);
-  const userId = payload['sub'];
-
-  User.findOne({ googleId: userId }, 'username bio createdAt', (error, user) => {
-    // Error Handling
-    if ( error ) return res.json({ success: false, error })
-
-    // No User Found
-    if ( !user ) {
-      return res.json({ success: false, error: "No user found."})
-      // This is a new user, add them to the backend.
-    }
-    return res.json( user )
-  })
-
-
-})
+// Auth 
+router.post('/login', authController.login)
 
 // User
 router.get('/users', userController.index)

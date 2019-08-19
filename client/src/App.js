@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 // import { Store } from './Store';
 import { Switch, Route } from 'react-router-dom'
 import Container from '@material-ui/core/Container';
@@ -9,21 +9,15 @@ import { connect } from 'react-redux';
 import { setProjects, loginUser } from './redux/actions';
 
 const App = ({ setProjects, loginUser, currentUser }) => {
-  // Get state and dispatch from the Store
-  // const { state, dispatch } = useContext(Store);
-  // const [ user, setUser ] = useState({})
-  // const [ googleReady, setGoogleReady ] = useEffect(false)
-
-  // Equivalent of componentDidMount & componentDidUpdate
+  // Equivalent of componentDidMount
   useEffect(() => {
     const fetchProjects = async () => {
       const data = await fetch('http://localhost:3000/api/projects');
       const dataJSON = await data.json();
       return setProjects(dataJSON)
     };
-
     fetchProjects();
-  }, [setProjects]);
+  }, [ setProjects ]);
 
   // useEffect(() => {
   //   window.gapi.signin2.render(
