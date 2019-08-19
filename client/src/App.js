@@ -1,37 +1,29 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { Store } from './Store';
+import React, { useState, useEffect } from 'react';
+// import { Store } from './Store';
 import { Switch, Route } from 'react-router-dom'
 import Container from '@material-ui/core/Container';
 import ProjectContainer from './containers/ProjectContainer';
 import ProjectPage from './components/ProjectPage'
 import PrimarySearchAppBar from './components/PrimarySearchAppBar'
+import { connect } from 'react-redux';
+import { setProjects, loginUser } from './redux/actions';
 
-function App() {
+const App = ({ setProjects, loginUser, currentUser }) => {
   // Get state and dispatch from the Store
-  const { state, dispatch } = useContext(Store);
-  const [ user, setUser ] = useState({})
+  // const { state, dispatch } = useContext(Store);
+  // const [ user, setUser ] = useState({})
   // const [ googleReady, setGoogleReady ] = useEffect(false)
-
-  const setProjects = dataJSON => ({
-    type: 'SET_PROJECTS',
-    payload: dataJSON.projects
-  })
-
-  const loginUser = currentUser => ({
-    type: 'LOGIN_USER',
-    payload: currentUser
-  })
 
   // Equivalent of componentDidMount & componentDidUpdate
   useEffect(() => {
     const fetchProjects = async () => {
       const data = await fetch('http://localhost:3000/api/projects');
       const dataJSON = await data.json();
-      return dispatch(setProjects(dataJSON));
+      return setProjects(dataJSON)
     };
 
     fetchProjects();
-  }, [dispatch]);
+  }, [setProjects]);
 
   // useEffect(() => {
   //   window.gapi.signin2.render(
@@ -45,8 +37,8 @@ function App() {
   // }, [])
 
   const onSignIn = (googleUser) => {
-    debugger
     var profile = googleUser.getBasicProfile();
+    // debugger
     console.log('Name: ' + profile.getName());
     console.log('Image URL: ' + profile.getImageUrl());
     console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
@@ -66,7 +58,7 @@ function App() {
     .then(data => {
       console.log("This can be set as currentUser:", data);
       // return dispatch(loginUser(data))
-      setUser(data)
+      loginUser(data)
       //
     })
   }
@@ -102,7 +94,7 @@ function App() {
   const googleLoadTimer = setInterval(() => {
     // authStore.setAuthLoadingStatus(LOADING_STATUS.INITIAL);
     // console.log("google-button");
-    if (window.gapi && !user.username) {
+    if (window.gapi && !currentUser.username) {
       clearInterval(googleLoadTimer);
       return initGoogle()
 
@@ -132,4 +124,13 @@ function App() {
   );
 }
 
-export default App;
+const mapStateToProps = state => ({
+  currentUser: state.userReducer.currentUser
+})
+
+const mapDispatchToProps = {
+  setProjects,
+  loginUser
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

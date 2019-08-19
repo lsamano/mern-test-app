@@ -1,15 +1,18 @@
-import React, { useContext } from 'react';
-import { Store } from '../Store';
+import React from 'react'
 import ProjectCard from '../components/ProjectCard'
+import {connect} from 'react-redux';
 
-const ProjectContainer = props => {
-  const { state } = useContext(Store);
+const ProjectContainer = ({ projects }) => {
   return (
     <>
       <h1>Browse Projects</h1>
-      {state.allProjects.map(proj => <ProjectCard project={proj} key={proj._id} /> )}
+      {projects.map(proj => <ProjectCard project={proj} key={proj._id} /> )}
     </>
   )
 }
 
-export default ProjectContainer
+const mapStateToProps = state => ({
+  projects: state.projectReducer.projects
+})
+
+export default connect(mapStateToProps)(ProjectContainer)
