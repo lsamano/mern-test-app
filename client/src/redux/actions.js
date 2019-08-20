@@ -7,3 +7,7 @@ export const loginUser = currentUser => ({
     type: 'LOGIN_USER',
     payload: currentUser
   })
+
+export const logoutUser = () => ({
+    type: 'LOGOUT_USER'
+})
