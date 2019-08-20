@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import Button from '@material-ui/core/Button';
 
 class ProjectPage extends Component {
   state = {
@@ -30,6 +31,7 @@ class ProjectPage extends Component {
         <h3>by {owner.username}</h3>
         <h2>GOAL: {project.goal}</h2>
         <p>{project.description}</p>
+        <Button>Donate to the Cause</Button>
       </div>
     );
   }
