@@ -90,17 +90,17 @@ const App = ({ setProjects, loginUser, currentUser, logoutUser }) => {
         </Switch>
       </Container>
       </>
-    );
-  }
+  );
+}
 
-  const mapStateToProps = state => ({
-    currentUser: state.userReducer.currentUser
-  })
+const mapStateToProps = state => ({
+  currentUser: state.userReducer.currentUser
+})
 
-  const mapDispatchToProps = {
-    setProjects,
-    loginUser,
-    logoutUser
-  }
+const mapDispatchToProps = {
+  setProjects,
+  loginUser,
+  logoutUser
+}
 
-  export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);
