@@ -18,7 +18,7 @@ const login = async (req, res) => {
   const payload =  await verify(req.body.token).catch(console.error);
   const userId = payload['sub'];
 
-  User.findOne({ googleId: userId }, 'username bio createdAt', (error, user) => {
+  User.findOne({ googleId: userId }, 'username bio createdAt given_name family_name', (error, user) => {
     // Error Handling
     if ( error ) return res.json({ success: false, error })
 

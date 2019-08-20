@@ -102,6 +102,11 @@ export default function PrimarySearchAppBar() {
     setMobileMoreAnchorEl(event.currentTarget);
   }
 
+  const handleGoogleLogin = () => {
+    handleMenuClose()
+    return null
+  }
+
   const menuId = 'primary-search-account-menu';
   const renderMenu = (
     <Menu
@@ -115,6 +120,7 @@ export default function PrimarySearchAppBar() {
     >
       <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
       <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <MenuItem onClick={handleGoogleLogin}><div id='gSignInWrapper'>Login with Google</div></MenuItem>
     </Menu>
   );
 
