@@ -77,7 +77,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function PrimarySearchAppBar() {
+export default function PrimarySearchAppBar({history}) {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -167,7 +167,7 @@ export default function PrimarySearchAppBar() {
 
   return (
     <div className={classes.grow}>
-      <AppBar position="static" style={{backgroundColor: '#'+Math.random().toString(16).substr(-6)}}>
+      <AppBar position="static" style={{background: 'linear-gradient(45deg, salmon 30%, #FF8E53 90%)'}}>
         <Toolbar>
           <IconButton
             edge="start"
@@ -177,7 +177,7 @@ export default function PrimarySearchAppBar() {
           >
             <MenuIcon />
           </IconButton>
-          <Typography className={classes.title} variant="h6" noWrap>
+          <Typography className={classes.title} variant="h6" noWrap onClick={() => history.push('/')}>
             BeneFactory
           </Typography>
           <div className={classes.search}>

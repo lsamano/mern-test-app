@@ -15,6 +15,7 @@ import { Link } from 'react-router-dom';
 const useStyles = makeStyles(theme => ({
   card: {
     maxWidth: 345,
+    margin: '10px'
   },
   media: {
     height: 0,
@@ -31,7 +32,7 @@ const useStyles = makeStyles(theme => ({
     transform: 'rotate(180deg)',
   },
   avatar: {
-    backgroundColor: '#'+Math.random().toString(16).substr(-6),
+    backgroundColor: 'gold',
   },
 }));
 
@@ -42,7 +43,7 @@ const ProjectCard = ({project}) => {
     <Card className={classes.card}>
       <CardHeader
         avatar={
-          <Avatar aria-label="Recipe" style={{backgroundColor: '#'+Math.random().toString(16).substr(-6)}}>
+          <Avatar aria-label="Recipe" className={classes.avatar}>
             {project.owner.username.charAt(0)}
           </Avatar>
         }

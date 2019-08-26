@@ -8,10 +8,11 @@ import PrimarySearchAppBar from './components/PrimarySearchAppBar'
 import { connect } from 'react-redux';
 import { setProjects, loginUser, logoutUser } from './redux/actions';
 import Button from '@material-ui/core/Button';
+import Pages from './pages';
 
-const App = ({ setProjects, loginUser, currentUser, logoutUser }) => {
+const App = ({ setProjects, loginUser, currentUser, logoutUser, history }) => {
 
-  // Equivalent of componentDidMount
+  // componentDidMount, initialize and render Google Sign In
   useEffect(() => {
     const onSignIn = (googleUser) => {
       var profile = googleUser.getBasicProfile();
@@ -37,7 +38,7 @@ const App = ({ setProjects, loginUser, currentUser, logoutUser }) => {
       })
     }
 
-    function initGoogle() {
+    const initGoogle = () => {
       window.gapi.load('auth2', () => {
         window.gapi.auth2.init({
           client_id: '585577409484-umhupk86o43pvo4ljup0949v08ja8ev8.apps.googleusercontent.com'
@@ -56,9 +57,10 @@ const App = ({ setProjects, loginUser, currentUser, logoutUser }) => {
         })
       }
 
-      initGoogle()
-    }, [loginUser]);
+      initGoogle();
+    }, [loginUser])
 
+    // componentDidMount, fetch all projects
     useEffect(() => {
       const fetchProjects = async () => {
         const data = await fetch('http://localhost:3000/api/projects');
@@ -79,14 +81,15 @@ const App = ({ setProjects, loginUser, currentUser, logoutUser }) => {
 
     return (
       <>
-      <PrimarySearchAppBar />
+      <PrimarySearchAppBar history={history}/>
       <Container>
-        <Button onClick={signOut}>Sign Out Now</Button>
+        <Button onClick={signOut}>Sign Out</Button>
         <div id='google-button'></div>
 
         <Switch>
           <Route path="/projects/:id" component={ProjectPage} />
-          <Route path="/" component={ProjectContainer} />
+          <Route path="/projects" component={ProjectContainer} />
+          <Route path='/' component={Pages.HomePage}/>
         </Switch>
       </Container>
       </>

@@ -13,5 +13,10 @@ code {
 }
 
 .flex-box {
-    display: flex;
+    display: inline-flex;
+    /* align-items: flex-start; */
+}
+
+.flex-card {
+  padding: 10px;
 }

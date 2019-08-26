@@ -7,7 +7,9 @@ const ProjectContainer = ({ projects }) => {
     <>
       <h1>Browse Projects</h1>
       <div className='flex-box'>
-        {projects.map(proj => <ProjectCard project={proj} key={proj._id} /> )}
+        {
+          projects.map(proj => <ProjectCard project={proj} key={proj._id} /> )
+        }
       </div>
     </>
   )
