@@ -1,4 +1,4 @@
-# mern-test-app
+# mern-test-app (BeneFactory)
 A crowd-funding app for video games with meaning.
 
 # Current Features
