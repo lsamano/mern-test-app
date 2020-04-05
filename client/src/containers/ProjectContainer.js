@@ -1,15 +1,21 @@
 import React, { Fragment, useContext } from 'react';
 import { Store } from '../Store';
 import ProjectCard from '../components/ProjectCard'
+import {connect} from 'react-redux';
 
-const ProjectContainer = props => {
-  const { state } = useContext(Store);
+const ProjectContainer = ({ projects }) => {
   return (
     <Fragment>
       <h1>Browse Projects</h1>
-      {state.allProjects.map(proj => <ProjectCard project={proj} key={proj._id} /> )}
+      <div className='flex-box'>
+        {projects.map(proj => <ProjectCard project={proj} key={proj._id} /> )}
+      </div>
     </Fragment>
   )
 }
 
-export default ProjectContainer
+const mapStateToProps = state => ({
+  projects: state.projectReducer.projects
+})
+
+export default connect(mapStateToProps)(ProjectContainer)

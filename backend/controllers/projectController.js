@@ -1,6 +1,6 @@
 import Project from '../models/project';
 
-export const index = (req, res) => {
+const index = (req, res) => {
   Project.find()
   .populate('owner', ['username', 'bio'])
   .exec((error, projects) => {
@@ -9,7 +9,7 @@ export const index = (req, res) => {
   })
 }
 
-export const create = (req, res) => {
+const create = (req, res) => {
   const project = new Project(req.body)
   project.save((error, newProject) => {
     if (error) return res.json({ success: false, error: error })
@@ -17,7 +17,7 @@ export const create = (req, res) => {
   })
 }
 
-export const show = (req, res) => {
+const show = (req, res) => {
   Project.findById(req.params.id)
   .populate('owner', ['username', 'bio'])
   .exec((error, project) => {
@@ -26,7 +26,7 @@ export const show = (req, res) => {
   })
 }
 
-export const update = (req, res) => {
+const update = (req, res) => {
   Project.findById(req.params.id, (error, project) => {
     if (error) return res.json({ success: false, error })
     const { name, owner, goal, description } = req.body
@@ -41,9 +41,17 @@ export const update = (req, res) => {
   })
 }
 
-export const destroy = (req, res) => {
+const destroy = (req, res) => {
   Project.deleteOne({ _id:req.params.id }, error => {
     if (error) return res.json({ success: false, error })
     return res.json({ success: true })
   })
+}
+
+export default {
+  index,
+  create,
+  show,
+  update,
+  destroy
 }

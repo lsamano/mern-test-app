@@ -1,9 +1,13 @@
 import express from 'express'
-import * as projectController from './controllers/projectController'
-import * as userController from './controllers/userController'
-import * as donationController from './controllers/donationController'
+const router = express.Router()
 
-export const router = express.Router()
+import projectController from './controllers/projectController'
+import userController from './controllers/userController'
+import donationController from './controllers/donationController'
+import authController from './controllers/authController'
+
+// Auth 
+router.post('/login', authController.login)
 
 // User
 router.get('/users', userController.index)
