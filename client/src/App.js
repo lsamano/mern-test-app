@@ -11,7 +11,6 @@ import Button from '@material-ui/core/Button';
 
 const App = ({ setProjects, loginUser, currentUser, logoutUser }) => {
 
-  // Equivalent of componentDidMount
   useEffect(() => {
     const onSignIn = (googleUser) => {
       var profile = googleUser.getBasicProfile();
